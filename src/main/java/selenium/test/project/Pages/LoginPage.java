@@ -25,8 +25,8 @@ public class LoginPage extends AbstractPage {
         return this;
     }
 
-    public DashboardPage submitLoginForm() {
+    public SearchPage submitLoginForm() {
         clickElement(loginButton);
-        return new DashboardPage(driver);
+        return new SearchPage(driver);
     }
 }

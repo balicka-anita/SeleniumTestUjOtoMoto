@@ -7,7 +7,6 @@ import org.testng.annotations.*;
 import selenium.test.project.Utils.CustomPath;
 import selenium.test.project.Utils.CustomScreenshot;
 
-import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -21,10 +20,12 @@ public abstract class AbstractTest {
         // Inicjalizacja obiektu customScreenshot
         customScreenshot = new CustomScreenshot();
         // Wskazanie zewnętrznego pliku drivera dla przeglądarki CHROME
-        System.setProperty(
-                "webdriver.chrome.driver",
-                new CustomPath().getResourcesPath("chromedriver.exe")
-        );
+        String chromedriver = System.getenv("CHROMEDRIVER");
+        if (chromedriver != null) {
+            setChromeDriverPath(chromedriver);
+        } else {
+            setChromeDriverPath("chromedriver.exe");
+        }
         //Stworzenie i zainicjalizowanie obiektu DRIVER przeglądarką CHROME
         driver = new ChromeDriver();
         // Ustawienie globalnego timeouta na 5 sekund
@@ -37,14 +38,21 @@ public abstract class AbstractTest {
         //strona logowania: https://www.otomoto.pl/konto/?ref%5B0%5D%5Bshop%5D=0&ref%5B0%5D%5Baction%5D=myaccount&ref%5B0%5D%5Bmethod%5D=index
     }
 
+    private void setChromeDriverPath(String filename) {
+        System.setProperty(
+                "webdriver.chrome.driver",
+                new CustomPath().getResourcesPath(filename)
+        );
+    }
+
 
     @AfterMethod
-    public void tearDownMethod(ITestResult result){
-        if ( result.getStatus() == ITestResult.FAILURE){
+    public void tearDownMethod(ITestResult result) {
+        if (result.getStatus() == ITestResult.FAILURE) {
             customScreenshot.makeScreenshot(
                     driver,
                     new Date().getTime() + "_" +
-                    result.getMethod().getMethodName()
+                            result.getMethod().getMethodName()
             );
         }
     }
