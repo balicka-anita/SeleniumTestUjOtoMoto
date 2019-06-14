@@ -50,7 +50,7 @@ public class SearchPage extends AbstractPage {
 
     public SearchPage(WebDriver driver) {
         super(driver);
-        brandSelect = new Select(driver.findElement(By.name("search[filter_enum_make]")));
+//        brandSelect = new Select(driver.findElement(By.name("search[filter_enum_make]")));
 
     }
 
