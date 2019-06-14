@@ -4,7 +4,7 @@
     <test name="Regression1">
         <classes>
             <class name="selenium.test.project.Tests.LoginTest"/>
-            <class name="selenium.test.project.Tests.SearchResultsPageTest"/>
+            <class name="selenium.test.project.Tests.SearchTest"/>
             <class name="selenium.test.project.Tests.AddAnnouncementTest"/>
         </classes>
     </test>
